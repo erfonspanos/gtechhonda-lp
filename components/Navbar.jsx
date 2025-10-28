@@ -45,12 +45,8 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2"
           >
-            <div className="text-red-600 font-bold text-2xl sm:text-3xl">
-              HONDA
-            </div>
-            <div className="text-white font-light text-xl sm:text-2xl">
-              Service
-            </div>
+              <img src="/logo-gtech.png" className='sm:w-[18vh] w-[12vh]' alt="logo-gtech" />
+            
           </motion.div>
 
           <div className="hidden md:flex space-x-8">
