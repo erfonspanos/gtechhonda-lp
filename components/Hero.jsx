@@ -18,7 +18,7 @@ export default function Hero() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+          backgroundImage: "url('/background.png')",
         }}
       />
 
@@ -44,7 +44,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Manutenção de excelência, tecnologia avançada e atendimento personalizado para o seu Honda
+            Somos a única oficina de Fortaleza dedicada 100% à manutenção, tecnologia e atendimento personalizado para o seu Honda.
           </motion.p>
 
           <motion.button

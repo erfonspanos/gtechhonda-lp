@@ -1,7 +1,21 @@
+// components/About.jsx
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Users, Clock, ThumbsUp } from 'lucide-react';
+
+// Importa o plugin de autoplay do Embla (base do seu carrossel)
+import Autoplay from 'embla-carousel-autoplay';
+
+// Importa os componentes de UI do seu projeto
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
+import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const stats = [
   { icon: Award, value: '15+', label: 'Anos de Experiência' },
@@ -10,7 +24,46 @@ const stats = [
   { icon: ThumbsUp, value: '98%', label: 'Aprovação' },
 ];
 
+// 1. Dados fictícios ATUALIZADOS para Fortaleza-CE
+const testimonials = [
+  {
+    name: 'Juliana Santos',
+    avatar: 'https://avatar.vercel.app/juliana.png',
+    comment:
+      'Serviço impecável! Meu Honda CR-V está perfeito. A equipe é super atenciosa e honesta. Melhor oficina de Fortaleza, recomendo de olhos fechados!',
+  },
+  {
+    name: 'Marcos Oliveira',
+    avatar: 'https://avatar.vercel.app/marcos.png',
+    comment:
+      'São realmente especialistas em Honda. Levei meu Civic com um problema elétrico que ninguém aqui em Fortaleza resolvia, e eles acharam a falha em um dia.',
+  },
+  {
+    name: 'Fernando Costa',
+    avatar: 'https://avatar.vercel.app/fernando.png',
+    comment:
+      'Atendimento nota 10! A revisão preventiva foi rápida e o carro saiu parecendo novo. Confiança total na G-Tech. Não troco por nenhuma outra no Ceará.',
+  },
+  {
+    name: 'Ana Clara Lima',
+    avatar: 'https://avatar.vercel.app/ana.png',
+    comment:
+      'Levei meu Fit para a G-Tech e fui muito bem atendida. Eles explicam tudo o que precisa ser feito, sem "empurrar" serviços. Virei cliente fiel aqui em Fortal.',
+  },
+  {
+    name: 'Rafael Martins',
+    avatar: 'https://avatar.vercel.app/rafael.png',
+    comment:
+      'Desde que comprei meu Accord, só faço manutenção na G-Tech. São 5 anos de parceria e meu carro nunca deu problema. A melhor oficina Honda de Fortaleza!',
+  },
+];
+
 export default function About() {
+  // 2. Configura o plugin de autoplay para o carrossel
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
+
   return (
     <section id="sobre" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,13 +78,19 @@ export default function About() {
               Sobre <span className="text-red-600">Nós</span>
             </h2>
             <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-              Somos uma oficina especializada exclusivamente em veículos Honda, com mais de 15 anos de experiência no mercado automotivo. Nossa equipe é formada por técnicos certificados e apaixonados pela marca.
+            Somos a <strong>única oficina em Fortaleza especializada exclusivamente em veículos Honda</strong>. 
+            Com mais de 15 anos de experiência, nossa equipe é formada por técnicos certificados e 
+            apaixonados pela marca, garantindo um conhecimento que vai além do superficial.
             </p>
             <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-              Utilizamos apenas peças originais e equipamentos de última geração para garantir que seu Honda receba o melhor cuidado possível. Nossa missão é proporcionar excelência em cada serviço realizado.
+            Nosso foco exclusivo permite o uso de peças 100% originais e equipamentos de 
+            última geração específicos para a Honda, 
+            garantindo que seu veículo receba o melhor cuidado possível.
             </p>
             <p className="text-gray-600 text-lg leading-relaxed">
-              Aqui, seu Honda está em casa. Combinamos conhecimento técnico profundo com atendimento personalizado para superar suas expectativas.
+              Aqui, seu Honda está em casa. Somos a verdadeira especialista de Fortaleza, 
+              combinando conhecimento técnico profundo com um atendimento que entende 
+              suas necessidades.
             </p>
           </motion.div>
 
@@ -44,7 +103,7 @@ export default function About() {
           >
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.pexels.com/photos/4489735/pexels-photo-4489735.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                src="./oficina.png"
                 alt="Equipe da oficina"
                 className="w-full h-full object-cover"
               />
@@ -75,11 +134,70 @@ export default function About() {
               <div className="text-3xl font-bold text-black mb-2">
                 {stat.value}
               </div>
-              <div className="text-gray-600 font-medium">
-                {stat.label}
-              </div>
+              <div className="text-gray-600 font-medium">{stat.label}</div>
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          className="mt-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-12 text-center">
+            O que nossos <span className="text-red-600">Clientes Dizem</span>
+          </h2>
+
+          <Carousel
+            plugins={[plugin.current]}
+            className="w-full"
+            opts={{
+              loop: true, // Faz o carrossel ser infinito
+            }}
+            onMouseEnter={plugin.current.stop}
+            onMouseLeave={plugin.current.play}
+          >
+            <CarouselContent className="-ml-4">
+              {testimonials.map((testimonial) => (
+                <CarouselItem
+                  key={testimonial.name}
+                  className="pl-4 md:basis-1/2 lg:basis-1/3" // Define quantos itens aparecem por tela
+                >
+                  <div className="p-1 h-full">
+                    <Card className="h-full shadow-lg">
+                      <CardContent className="flex flex-col items-start p-6 h-full">
+                        <div className="flex items-center gap-4 mb-4">
+                          <Avatar>
+                            <AvatarImage
+                              src={testimonial.avatar}
+                              alt={testimonial.name}
+                            />
+                            <AvatarFallback>
+                              {/* Gera iniciais a partir do nome, ex: "JS" */}
+                              {testimonial.name
+                                .split(' ')
+                                .map((n) => n[0])
+                                .join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h4 className="font-bold text-lg text-black">
+                              {testimonial.name}
+                            </h4>
+                          </div>
+                        </div>
+                        <p className="text-gray-600 text-left leading-relaxed">
+                          "{testimonial.comment}"
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </motion.div>
       </div>
     </section>

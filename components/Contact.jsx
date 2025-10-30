@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import WhatsappIcon from './ui/WhatsappIcon';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -33,10 +34,10 @@ export default function Contact() {
       link: 'tel:+551134567890',
     },
     {
-      icon: MessageCircle,
+      icon: WhatsappIcon,
       title: 'WhatsApp',
-      content: '(11) 98765-4321',
-      link: 'https://wa.me/5511987654321',
+      content: '(85) 98836-4125',
+      link: 'https://wa.me/5585988364125',
     },
     {
       icon: Mail,
@@ -47,7 +48,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Endereço',
-      content: 'Av. Honda, 1000 - São Paulo, SP',
+      content: 'Av. Antônio Sales, 343 - Joaquim Távora, Fortaleza-CE 60135-101',
       link: 'https://maps.google.com',
     },
   ];
@@ -166,7 +167,7 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <div className="space-y-6 mb-8">
+            <div className="space-y-4 mb-2">
               {contactInfo.map((info, index) => (
                 <motion.a
                   key={info.title}
@@ -184,7 +185,7 @@ export default function Contact() {
                     <info.icon className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black text-lg mb-1">
+                    <h3 className="font-semibold text-black text-lg">
                       {info.title}
                     </h3>
                     <p className="text-gray-600">{info.content}</p>
@@ -201,7 +202,7 @@ export default function Contact() {
               className="rounded-xl overflow-hidden shadow-2xl h-80"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0977!2d-46.6333824!3d-23.5629257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sSão%20Paulo%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2217.8240960717158!2d-38.5198207310923!3d-3.7402568558634903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c749a73c68550d%3A0x7b1daf2040ea03a3!2sGtech%20oficina%20especializada%20em%20ve%C3%ADculos%20Honda!5e0!3m2!1spt-BR!2sbr!4v1761786085961!5m2!1spt-BR!2sbr"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

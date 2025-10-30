@@ -7,10 +7,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Facebook, href: 'https://www.facebook.com/gtechoficinaespecializada/?locale=pt_BR', label: 'Facebook' },
+    { icon: Instagram, href: 'https://www.instagram.com/gtechoficinaespecializada/', label: 'Instagram' },
   ];
 
   return (
