@@ -8,42 +8,61 @@ import WhatsappIcon from './ui/WhatsappIcon';
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
     message: '',
   });
 
-  const [status, setStatus] = useState('');
+  // A função formatPhone aplica a máscara (XX) XXXXX-XXXX
+  const formatPhone = (value) => {
+    let v = value.replace(/\D/g, ''); // Remove todos os não-dígitos
+    v = v.slice(0, 11); // Limita a 11 dígitos (DDD + 9 + 8 dígitos)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setStatus('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
-    setTimeout(() => setStatus(''), 5000);
+    if (v.length > 7) {
+      // (XX) XXXXX-XXXX
+      v = v.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+    } else if (v.length > 2) {
+      // (XX) XXXXX
+      v = v.replace(/^(\d{2})(\d{1,5}).*/, '($1) $2');
+    } else if (v.length > 0) {
+      // (XX
+      v = v.replace(/^(\d{1,2}).*/, '($1');
+    }
+    return v;
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === 'phone') {
+      setFormData({ ...formData, phone: formatPhone(value) });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { name, phone, message } = formData;
+    const phoneNumber = '5585988364125'; 
+
+    const whatsappMessage = `${name}\n${phone}\n\n${message}`;
+
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
+
+    window.open(whatsappUrl, '_blank');
+
+    setFormData({ name: '', phone: '', message: '' });
   };
 
   const contactInfo = [
-    {
-      icon: Phone,
-      title: 'Telefone',
-      content: '(11) 3456-7890',
-      link: 'tel:+551134567890',
-    },
     {
       icon: WhatsappIcon,
       title: 'WhatsApp',
       content: '(85) 98836-4125',
       link: 'https://wa.me/5585988364125',
-    },
-    {
-      icon: Mail,
-      title: 'E-mail',
-      content: 'contato@hondaservice.com.br',
-      link: 'mailto:contato@hondaservice.com.br',
     },
     {
       icon: MapPin,
@@ -95,21 +114,6 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
-                  E-mail
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div>
                 <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">
                   Telefone
                 </label>
@@ -120,6 +124,9 @@ export default function Contact() {
                   value={formData.phone}
                   onChange={handleChange}
                   required
+                  // Adiciona maxLength para garantir que a máscara seja respeitada
+                  maxLength="15" 
+                  placeholder="(DDD) 9XXXX-XXXX"
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none transition-colors"
                 />
               </div>
@@ -147,16 +154,9 @@ export default function Contact() {
               >
                 Enviar Mensagem
               </motion.button>
+              
+              {/* O status de "mensagem enviada" foi removido, pois a ação agora é ir para o WhatsApp */}
 
-              {status && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-green-50 border-2 border-green-500 text-green-700 px-4 py-3 rounded-lg"
-                >
-                  {status}
-                </motion.div>
-              )}
             </form>
           </motion.div>
 
@@ -167,7 +167,7 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <div className="space-y-4 mb-2">
+            <div className="space-y-8 mb-8">
               {contactInfo.map((info, index) => (
                 <motion.a
                   key={info.title}

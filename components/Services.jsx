@@ -3,36 +3,37 @@
 import { motion } from 'framer-motion';
 import { Wrench, Droplet, Settings, Gauge, Shield, Zap } from 'lucide-react';
 
+// Lista de serviços ATUALIZADA com base no briefing
 const services = [
   {
     icon: Wrench,
-    title: 'Manutenção Preventiva',
-    description: 'Revisões programadas para garantir o melhor desempenho do seu Honda',
-  },
-  {
-    icon: Droplet,
-    title: 'Troca de Óleo',
-    description: 'Óleos certificados e filtros originais para máxima proteção do motor',
+    title: 'Revisões Conforme o Manual',
+    description: 'Revisões programadas seguindo à risca as especificações da Honda para garantir o melhor desempenho.',
   },
   {
     icon: Settings,
-    title: 'Revisão Completa',
-    description: 'Inspeção detalhada de todos os sistemas do seu veículo',
+    title: 'Reparo de Câmbio CVT',
+    description: 'Diagnóstico e reparo especializado em transmissões CVT, um dos nossos maiores diferenciais.',
   },
   {
     icon: Gauge,
-    title: 'Alinhamento e Balanceamento',
-    description: 'Precisão técnica para dirigibilidade e economia de combustível',
+    title: 'Suspensão e Alinhamento',
+    description: 'Serviço completo em suspensão, alinhamento e balanceamento para máxima dirigibilidade e segurança.',
   },
   {
     icon: Shield,
     title: 'Diagnóstico Computadorizado',
-    description: 'Tecnologia de ponta para identificar problemas com precisão',
+    description: 'Tecnologia de ponta para identificar com precisão qualquer falha mecânica ou elétrica no seu Honda.',
   },
   {
     icon: Zap,
-    title: 'Sistema Elétrico',
-    description: 'Especialização em eletrônica automotiva Honda',
+    title: 'Elétrica e Módulos ABS',
+    description: 'Especialização em eletrônica Honda, incluindo diagnóstico e reparo de módulos ABS.',
+  },
+  {
+    icon: Droplet,
+    title: 'Manutenção de Câmbio Automático',
+    description: 'Realizamos a troca total ou parcial do fluido e manutenção em câmbios automáticos (AT).',
   },
 ];
 
