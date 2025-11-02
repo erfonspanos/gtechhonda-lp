@@ -48,8 +48,8 @@ export default function Footer() {
           >
             <h3 className="text-xl font-bold mb-4">Horário de Funcionamento</h3>
             <div className="space-y-2 text-gray-400">
-              <p>Segunda a Sábado: 8h às 18h</p>
-              <p>FECHADA das 12h as 13h</p>
+              <p>Segunda a Sexta: 8h às 18h</p> <span>FECHADA das 12h as 13h</span>
+              <p>Sábado: 8h as 12h</p>
               <p>Domingo: Fechado</p>
             </div>
           </motion.div>
