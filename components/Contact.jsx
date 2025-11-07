@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import WhatsappIcon from './ui/WhatsappIcon';
 
 export default function Contact() {
@@ -44,7 +44,7 @@ export default function Contact() {
     e.preventDefault();
 
     const { name, phone, message } = formData;
-    const phoneNumber = '5585988364125'; 
+    const phoneNumber = '5585988364125';
 
     const whatsappMessage = `${name}\n${phone}\n\n${message}`;
 
@@ -73,8 +73,28 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contato" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    // 1. ADICIONADO 'relative' e 'overflow-hidden' À SEÇÃO
+    <section
+      id="contato"
+      className="py-20 bg-white relative overflow-hidden"
+    >
+      {/* 2. ADICIONADO O DIV DA IMAGEM DE FUNDO */}
+      {/* Troque a URL abaixo pela sua imagem. 
+        Uma textura sutil ou um blueprint (esquema técnico) funcionam bem.
+      */}
+      <div
+        className="absolute inset-0 z-0 opacity-5" // Opacidade bem baixa (5%)
+        style={{
+          backgroundImage:
+            "url('/oficina.png')",
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundBlendMode: 'multiply', // Mistura a imagem com o bg-white
+        }}
+      />
+
+      {/* 3. ADICIONADO 'relative z-10' AO CONTEÚDO PARA FICAR NA FRENTE */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +106,8 @@ export default function Contact() {
             Entre em <span className="text-red-600">Contato</span>
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Estamos prontos para atender você. Agende seu serviço ou tire suas dúvidas
+            Estamos prontos para atender você. Agende seu serviço ou tire suas
+            dúvidas
           </p>
         </motion.div>
 
@@ -97,9 +118,16 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {/* O formulário permanece com bg-gray-50, como solicitado */}
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6 bg-gray-50 p-8 rounded-xl shadow-lg"
+            >
               <div>
-                <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
                   Nome Completo
                 </label>
                 <input
@@ -114,7 +142,10 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">
+                <label
+                  htmlFor="phone"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
                   Telefone
                 </label>
                 <input
@@ -124,15 +155,17 @@ export default function Contact() {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  // Adiciona maxLength para garantir que a máscara seja respeitada
-                  maxLength="15" 
+                  maxLength="15"
                   placeholder="(DDD) 9XXXX-XXXX"
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">
+                <label
+                  htmlFor="message"
+                  className="block text-gray-700 font-semibold mb-2"
+                >
                   Mensagem
                 </label>
                 <textarea
@@ -154,9 +187,6 @@ export default function Contact() {
               >
                 Enviar Mensagem
               </motion.button>
-              
-              {/* O status de "mensagem enviada" foi removido, pois a ação agora é ir para o WhatsApp */}
-
             </form>
           </motion.div>
 
@@ -168,18 +198,23 @@ export default function Contact() {
             className="space-y-6"
           >
             <div className="space-y-8 mb-8">
+              {/* Os cards de informação permanecem com bg-gray-50 */}
               {contactInfo.map((info, index) => (
                 <motion.a
                   key={info.title}
                   href={info.link}
                   target={info.link.startsWith('http') ? '_blank' : undefined}
-                  rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  rel={
+                    info.link.startsWith('http')
+                      ? 'noopener noreferrer'
+                      : undefined
+                  }
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ x: 5 }}
-                  className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                  className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer shadow-lg"
                 >
                   <div className="bg-red-600 p-3 rounded-lg">
                     <info.icon className="text-white" size={24} />

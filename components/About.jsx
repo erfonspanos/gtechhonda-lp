@@ -1,8 +1,8 @@
 // components/About.jsx
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Award, Users, Clock, ThumbsUp } from 'lucide-react';
 
 // Importa o plugin de autoplay do Embla (base do seu carrossel)
@@ -58,11 +58,34 @@ const testimonials = [
   },
 ];
 
+const aboutImages = [
+  {
+    src: './oficina.png',
+    alt: 'Foto da estrutura da oficina G-Tech',
+  },
+  {
+    src: './equipegtech.png',
+    alt: 'Equipe de especialistas G-Tech Honda',
+  },
+];
+
 export default function About() {
   // 2. Configura o plugin de autoplay para o carrossel
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % aboutImages.length
+      );
+    }, 5000); 
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section id="sobre" className="py-20 bg-gray-50">
@@ -102,11 +125,22 @@ export default function About() {
             className="relative"
           >
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src="./oficina.png"
-                alt="Equipe da oficina"
-                className="w-full h-full object-cover"
-              />
+              <AnimatePresence>
+                <motion.img
+                  // O 'key' é essencial para o AnimatePresence detectar a troca
+                  key={aboutImages[currentImageIndex].src}
+                  src={aboutImages[currentImageIndex].src}
+                  alt={aboutImages[currentImageIndex].alt}
+                  // Posiciona a imagem absolutamente dentro do container
+                  className="absolute inset-0 w-full h-full object-cover"
+                  // Animações de fade-in e fade-out
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.0, ease: 'easeInOut' }} // Duração de 1s para o fade
+                />
+              </AnimatePresence>
+              {/* O gradiente fica por cima, fora do AnimatePresence */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
           </motion.div>
