@@ -63,10 +63,11 @@ const aboutImages = [
     src: './oficina.png',
     alt: 'Foto da estrutura da oficina G-Tech',
   },
-  {
-    src: './equipegtech.png',
-    alt: 'Equipe de especialistas G-Tech Honda',
-  },
+  // FOTO COMENTADA DA EQUIPE POR SER FOTO ERRADA (Assim que enviarem a foto certa, troco aqui)
+  // {
+  //   src: './equipegtech.png',
+  //   alt: 'Equipe de especialistas G-Tech Honda',
+  // },
 ];
 
 export default function About() {
