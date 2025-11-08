@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Wrench, Droplet, Settings, Gauge, Shield, Zap } from 'lucide-react';
-import Autoplay from 'embla-carousel-autoplay';
+import React from "react";
+import { motion } from "framer-motion";
+import { Wrench, Droplet, Settings, Gauge, Shield, Zap } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
 
 import {
   Carousel,
@@ -11,67 +11,72 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel';
-import { Card, CardContent } from '@/components/ui/card';
-import WhatsappIcon from './ui/WhatsappIcon';
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import WhatsappIcon from "./ui/WhatsappIcon";
 
 // Lista de serviços ATUALIZADA com base no briefing
 const services = [
   {
     icon: Wrench,
-    title: 'Revisões Conforme o Manual',
-    description: 'Revisões programadas seguindo à risca as especificações da Honda para garantir o melhor desempenho.',
+    title: "Revisões Conforme o Manual",
+    description:
+      "Revisões programadas seguindo à risca as especificações da Honda para garantir o melhor desempenho.",
   },
   {
     icon: Settings,
-    title: 'Reparo de Câmbio CVT',
-    description: 'Diagnóstico e reparo especializado em transmissões CVT, um dos nossos maiores diferenciais.',
+    title: "Reparo de Câmbio CVT",
+    description:
+      "Diagnóstico e reparo especializado em transmissões CVT, um dos nossos maiores diferenciais.",
   },
   {
     icon: Gauge,
-    title: 'Suspensão e Alinhamento',
-    description: 'Serviço completo em suspensão, alinhamento e balanceamento para máxima dirigibilidade e segurança.',
+    title: "Suspensão e Alinhamento",
+    description:
+      "Serviço completo em suspensão, alinhamento e balanceamento para máxima dirigibilidade e segurança.",
   },
   {
     icon: Shield,
-    title: 'Diagnóstico Computadorizado',
-    description: 'Tecnologia de ponta para identificar com precisão qualquer falha mecânica ou elétrica no seu Honda.',
+    title: "Diagnóstico Computadorizado",
+    description:
+      "Tecnologia de ponta para identificar com precisão qualquer falha mecânica ou elétrica no seu Honda.",
   },
   {
     icon: Zap,
-    title: 'Elétrica e Módulos ABS',
-    description: 'Especialização em eletrônica Honda, incluindo diagnóstico e reparo de módulos ABS.',
+    title: "Elétrica e Módulos ABS",
+    description:
+      "Especialização em eletrônica Honda, incluindo diagnóstico e reparo de módulos ABS.",
   },
   {
     icon: Droplet,
-    title: 'Manutenção de Câmbio Automático',
-    description: 'Realizamos a troca total ou parcial do fluido e manutenção em câmbios automáticos (AT).',
+    title: "Manutenção de Câmbio Automático",
+    description:
+      "Realizamos a troca total ou parcial do fluido e manutenção em câmbios automáticos (AT).",
   },
 ];
 
 const galleryImages = [
   {
-    src: '/trabalhando.jpg',
-    alt: 'Mecânico trabalhando em um Honda no elevador',
+    src: "/trabalhando.jpg",
+    alt: "Mecânico trabalhando em um Honda no elevador",
   },
   {
-    src: '/trabalhando2.jpg',
-    alt: 'Close-up do motor de um carro durante a manutenção',
+    src: "/trabalhando2.jpg",
+    alt: "Close-up do motor de um carro durante a manutenção",
   },
   {
-    src: '/trabalhando3.jpg',
-    alt: 'Diagnóstico computadorizado em um Honda',
+    src: "/trabalhando3.jpg",
+    alt: "Diagnóstico computadorizado em um Honda",
   },
 ];
 
 export default function Services() {
-
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true, stopOnMouseEnter: true })
   );
-  
-  const phoneNumber = '5585988364125';
-  const message = 'Olá, G-Tech! Gostaria de marcar uma visita!';
+
+  const phoneNumber = "5585988364125";
+  const message = "Olá, G-Tech! Gostaria de marcar uma visita!";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
     message
   )}`;
@@ -90,7 +95,8 @@ export default function Services() {
             Nossos <span className="text-red-600">Serviços</span>
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Oferecemos uma gama completa de serviços especializados para manter seu Honda em perfeito estado
+            Oferecemos uma gama completa de serviços especializados para manter
+            seu Honda em perfeito estado
           </p>
         </motion.div>
 
@@ -129,8 +135,22 @@ export default function Services() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-xl"
-            whileHover={{ scale: 1.05 }}
+            className="group inline-flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold shadow-xl shadow-red-600/50"
+            // Suas props de animação (estão corretas)
+            animate={{
+              scale: [1, 1.08, 1],
+              boxShadow: [
+                "0 0 20px rgba(220, 38, 38, 0.3)",
+                "0 0 35px rgba(220, 38, 38, 0.6)",
+                "0 0 20px rgba(220, 38, 38, 0.3)",
+              ],
+            }}
+            transition={{
+              duration: 2.8,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "easeInOut",
+            }}
             whileTap={{ scale: 0.95 }}
           >
             <WhatsappIcon size={24} />

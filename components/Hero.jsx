@@ -47,18 +47,47 @@ export default function Hero() {
             Somos a única oficina de Fortaleza dedicada 100% à manutenção, tecnologia e atendimento personalizado para o seu Honda.
           </motion.p>
 
+          {/* ================== INÍCIO DA EDIÇÃO ================== */}
           <motion.button
             onClick={scrollToContact}
-            className="group bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:scale-105 flex items-center gap-2 mx-auto shadow-xl"
+            // 1. Classes de transição do Tailwind removidas e glow adicionado
+            className="group bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold flex items-center gap-2 mx-auto shadow-xl shadow-red-600/50"
+            
+            // 2. 'initial' mantido para a animação de entrada
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
+            
+            // 3. 'animate' combina a animação de entrada (opacity, y) com a de pulsação (scale, boxShadow)
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: [1, 1.06, 1],
+              boxShadow: [
+                "0 0 20px rgba(220, 38, 38, 0.3)",
+                "0 0 35px rgba(220, 38, 38, 0.6)",
+                "0 0 20px rgba(220, 38, 38, 0.3)",
+              ],
+            }}
+            
+            // 4. 'transition' define durações separadas para a entrada e para o loop de pulsação
+            transition={{
+              // Transições para a entrada (como estava antes)
+              opacity: { duration: 0.8, delay: 0.6 },
+              y: { duration: 0.8, delay: 0.6 },
+              
+              // Transições para a pulsação (infinita)
+              // Delay de 1.4s (0.8 + 0.6) para começar a pulsar *após* entrar na tela
+              scale: { duration: 2.8, repeat: Infinity, repeatType: "loop", ease: "easeInOut", delay: 1.4 },
+              boxShadow: { duration: 2.8, repeat: Infinity, repeatType: "loop", ease: "easeInOut", delay: 1.4 }
+            }}
+            
+            // 5. 'whileHover' removido (conflitava) e 'whileTap' mantido
             whileTap={{ scale: 0.95 }}
           >
             Agendar Serviço
             <ChevronRight className="group-hover:translate-x-1 transition-transform" />
           </motion.button>
+          {/* =================== FIM DA EDIÇÃO ==================== */}
+          
         </motion.div>
       </div>
 
